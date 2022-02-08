@@ -93,19 +93,21 @@ for user in users:
 
 #Point 6. Чистка списков
 
-for user in users:
+pure_users = users.copy()
+
+for user in pure_users:
     if 'friends' in user:
         list_of_friends = user['friends']
-        list_of_friends_to_remove = []
+        list_of_friends_who_traveled_in_wrong_countries = []
         for i in list_of_friends:
             if 'flights' in i:
                 list_of_flights = i['flights']
                 for j in list_of_flights:
                     if j['country'] in countries:
-                        if i not in list_of_friends_to_remove:
-                            list_of_friends_to_remove.append(i)
-    if list_of_friends_to_remove:
-        users.remove(user)                  
+                        if i not in list_of_friends_who_traveled_in_wrong_countries:
+                            list_of_friends_who_traveled_in_wrong_countries.append(i)
+    if list_of_friends_who_traveled_in_wrong_countries:
+        pure_users.remove(user)                  
                     
 
 
