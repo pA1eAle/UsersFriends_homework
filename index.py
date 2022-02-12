@@ -81,7 +81,7 @@ for user in users:
         for friend in user['friends']:
             if 'cars' in friend and 'flights' in friend:
                 friends_with_cars += 1
-                friends_travels_total += 1
+                friends_travels_total += len(friend['flights'])
     if friends_travels_total:
         avg_flights = round(friends_travels_total / friends_with_cars, 5)                   
 
