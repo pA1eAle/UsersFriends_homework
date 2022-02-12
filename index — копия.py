@@ -1,6 +1,6 @@
 from dataset import users, countries
 
-
+'''
 #Point 1. Плохие пароли
 
 users_wrong_password = []
@@ -69,7 +69,7 @@ for user in users:
         vip_user = vip_candidate['name'] 
 
 print(vip_user)        
-
+'''
 
 #Point 5. Путешественники
 
@@ -83,9 +83,10 @@ for user in users:
                 friends_with_cars += 1
                 friends_travels_total += 1
     if friends_travels_total:
-        avg_flights = round(friends_travels_total / friends_with_cars, 5)                   
+        avg_flights = round(friends_travels_total / friends_with_cars, 5)           
+                        
 
-
+'''
 #Point 6. Чистка списков
 
 pure_users = users.copy()
@@ -105,4 +106,25 @@ for user in pure_users:
         pure_users.remove(user)                  
                     
 
+#Point 5. Путешественники
 
+for user in users:
+    avg_flights = 0
+    friends_with_cars = []
+    particular_friends_number_of_flights = 0
+    number_of_flights = []
+    if 'friends' in user:
+        list_of_friends = user['friends']
+        for i in list_of_friends:
+            if isinstance(i, dict):
+                if 'cars' in i:
+                    if 'flights' in i:
+                        friends_with_cars.append(i)
+                        particular_friends_number_of_flights = len(i['flights'])
+                        number_of_flights.append(particular_friends_number_of_flights)
+        if len(friends_with_cars):
+            avg_flights = round(sum(number_of_flights) / len(friends_with_cars), 5)                    
+
+
+
+'''
