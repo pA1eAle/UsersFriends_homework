@@ -80,11 +80,12 @@ for user in users:
         friends_with_cars = 0
         friends_travels_total = 0
         for friend in user['friends']:
-            if 'cars' in friend and 'flights' in friend:
+            if 'cars'in friend and 'flights' in friend:
                 friends_with_cars += 1
                 friends_travels_total += len(friend['flights']) 
-    if friends_with_cars:
-        avg_flights = round(friends_travels_total / friends_with_cars, 5)                 
+        if friends_with_cars:
+            avg_flights = round(friends_travels_total / friends_with_cars, 5)     
+            print(avg_flights)            
 
 
 #Point 6. Чистка списков
