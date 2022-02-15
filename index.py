@@ -75,17 +75,18 @@ print(vip_user)
 
 avg_flights = 0
 
+friends_with_cars = 0
+total_flights = 0
+    
 for user in users:
-    if 'friends' in user:
-        friends_with_cars = 0
-        friends_travels_total = 0
-        for friend in user['friends']:
-            if 'cars'in friend and 'flights' in friend:
-                friends_with_cars += 1
-                friends_travels_total += len(friend['flights']) 
-        if friends_with_cars:
-            avg_flights = round(friends_travels_total / friends_with_cars, 5)     
-            print(avg_flights)            
+    friends = user.get('friends', [])
+    for friend in friends:
+        cars = friend.get('cars', None)
+        if cars:
+            friends_with_cars += 1
+            total_flights += len(friend.get('flights', []))
+    
+avg_flights = round(total_flights / friends_with_cars, 5) if friends_with_cars else 0          
 
 
 #Point 6. Чистка списков
