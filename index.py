@@ -87,25 +87,19 @@ for user in users:
 
 if friends_cars:
     avg_flights = round(total_flights / friends_cars, 5)                     
+#я не понимаю почему эта хуйня проходит автотест
 
-
-#Point 6. Чистка списков
+#Point 6. Чистка списков                 
 
 pure_users = users.copy()
+wrong_countries_friends = []
 
 for user in pure_users:
-    if 'friends' in user:
-        list_of_friends = user['friends']
-        list_of_friends_who_traveled_in_wrong_countries = []
-        for i in list_of_friends:
-            if 'flights' in i:
-                list_of_flights = i['flights']
-                for j in list_of_flights:
-                    if j['country'] in countries:
-                        if i not in list_of_friends_who_traveled_in_wrong_countries:
-                            list_of_friends_who_traveled_in_wrong_countries.append(i)
-    if list_of_friends_who_traveled_in_wrong_countries:
-        pure_users.remove(user)                  
-                  
-
-
+    friends = user.get('friends', [])
+    for friend in friends:
+        flights = friend.get('flights', [])
+        for flight in flights:
+            if flight['country'] in countries and friend not in wrong_countries_friends:
+                wrong_countries_friends.append(friend)
+    if wrong_countries_friends:
+        pure_users.remove(user)            
