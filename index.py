@@ -92,22 +92,26 @@ if friends_cars:
 #Point 6. Чистка списков                 
 
 pure_users = users.copy()
+flights = []
+wrong_countries_friends = []
+i = 0
 
 for user in pure_users:
-    i = 0
-    while i < len(pure_users):
-        need_remove = False
-        friends = pure_users[i].get('friends', [])
-        for friend in friends:
-            flights = friend.get('flights', [])
-            for flight in flights:
-                if flight['country'] in countries:
-                    need_remove = True
-                    break
-            if need_remove:
-                break
-    
-        if need_remove:
-            del pure_users[i]
-        else:
-            i += 1
+    if 'friends' in user:
+        for friend in user['friends']:
+            if 'flights' in friend:
+                for flight in friend['flights']:
+                    flights.append(flight)
+        for flight in flights:
+            if flight['country'] in countries and user not in wrong_countries_friends:
+                wrong_countries_friends.append(user)
+
+while i < len(wrong_countries_friends):
+    user = wrong_countries_friends[i]
+    if user in wrong_countries_friends:
+        pure_users.remove(user)
+        i += 1
+    else:
+        i +=1    
+
+print('pure_users: ', pure_users)
