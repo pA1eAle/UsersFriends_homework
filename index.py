@@ -95,9 +95,9 @@ pure_users = users.copy()
 
 for user in pure_users:
     i = 0
-    while i < len(users_copy):
+    while i < len(pure_users):
         need_remove = False
-        friends = users_copy[i].get('friends', [])
+        friends = pure_users[i].get('friends', [])
         for friend in friends:
             flights = friend.get('flights', [])
             for flight in flights:
@@ -108,6 +108,6 @@ for user in pure_users:
                 break
     
         if need_remove:
-            del users_copy[i]
+            del pure_users[i]
         else:
             i += 1
