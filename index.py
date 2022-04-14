@@ -87,31 +87,15 @@ for user in users:
 
 if friends_cars:
     avg_flights = round(total_flights / friends_cars, 5)                     
-#я не понимаю почему эта хуйня проходит автотест, а мои варианты нет, хотя все работало
 
-#Point 6. Чистка списков                 
 
-pure_users = users.copy()
-flights = []
-wrong_countries_friends = []
+#Point 6. Чистка списков  
+
 i = 0
-
-for user in pure_users:
-    if 'friends' in user:
-        for friend in user['friends']:
-            if 'flights' in friend:
-                for flight in friend['flights']:
-                    flights.append(flight)
-        for flight in flights:
-            if flight['country'] in countries and user not in wrong_countries_friends:
-                wrong_countries_friends.append(user)
-
-while i < len(wrong_countries_friends):
-    user = wrong_countries_friends[i]
-    if user in wrong_countries_friends:
-        pure_users.remove(user)
-        i += 1
+while i < len(users):
+    user = isers[i]
+    if user in countries:
+        users.remove(user)
     else:
-        i +=1    
-
-print('pure_users: ', pure_users)
+        i += 1
+    
