@@ -90,11 +90,12 @@ if friends_cars:
 
 
 #Point 6. Чистка списков  
-#weird thing isers[i] ???
+
 i = 0
 while i < len(users):
     user = users[i]
-    if user in countries:
+    country = user.get('countries', [])
+    if country in countries:
         users.remove(user)
     else:
         i += 1
