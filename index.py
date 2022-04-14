@@ -1,6 +1,6 @@
 from dataset import users, countries
 
-
+'''
 #Point 1. Плохие пароли
 
 users_wrong_password = []
@@ -88,15 +88,28 @@ for user in users:
 if friends_cars:
     avg_flights = round(total_flights / friends_cars, 5)                     
 
-
+'''
 #Point 6. Чистка списков  
 
-i = 0
-while i < len(users):
-    user = users[i]
-    country = user.get('countries', [])
-    if country in countries:
-        users.remove(user)
+counter = 0
+friends_flights = []
+
+while counter < len(users):
+    user = users[counter]
+    if 'friends' in user:
+        for friend in user['friends']:
+            if 'flights' in friend:
+                for flight in friend['flights']:
+                    if flight['country'] in countries:
+                        if flight['country'] not in friends_flights:
+                            friends_flights.append(flight['country'])                          
     else:
-        i += 1
-    
+        counter += 1
+    if friends_flights:
+        for country in friends_flights:
+            if country in countries:
+                users.remove(user) 
+                del friends_flights[:] 
+
+
+print(users)                             
